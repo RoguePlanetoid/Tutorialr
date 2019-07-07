@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGame", "MemoryGame\MemoryGame.csproj", "{28D0D76E-C119-4760-8961-0805472B1A53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM.ActiveCfg = Debug|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM.Build.0 = Debug|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM.Deploy.0 = Debug|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM64.Build.0 = Debug|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x64.ActiveCfg = Debug|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x64.Build.0 = Debug|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x64.Deploy.0 = Debug|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x86.ActiveCfg = Debug|x86
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x86.Build.0 = Debug|x86
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Debug|x86.Deploy.0 = Debug|x86
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM.ActiveCfg = Release|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM.Build.0 = Release|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM.Deploy.0 = Release|ARM
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM64.ActiveCfg = Release|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM64.Build.0 = Release|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|ARM64.Deploy.0 = Release|ARM64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x64.ActiveCfg = Release|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x64.Build.0 = Release|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x64.Deploy.0 = Release|x64
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x86.ActiveCfg = Release|x86
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x86.Build.0 = Release|x86
+		{28D0D76E-C119-4760-8961-0805472B1A53}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A06BBE78-A4D1-48E7-8169-34C3DD094FFD}
+	EndGlobalSection
+EndGlobal
