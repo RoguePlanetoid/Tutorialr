@@ -1,0 +1,817 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Spotify for Developers";
+}
+<h1>Spotify for Developers</h1>
+<div class="container">
+    <div class="row mb-2">
+        <div class="mx-auto">
+            <h2 class="text-center">Authorisation</h2>
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">
+                    <form asp-page-handler="authorisationcode" method="post">
+                        <button class="btn btn-success m-md-1">
+                            Authorisation Code Flow Login
+                        </button>
+                    </form>
+                </li>
+                <li class="list-group-item">
+                    <form asp-page-handler="implicitgrant" method="post">
+                        <button class="btn btn-success m-md-1">
+                            Implicit Grant Flow Login
+                        </button>
+                    </form>
+                </li>
+                <li class="list-group-item">
+                    <form asp-page-handler="clientcredentials" method="post">
+                        <button class="btn btn-success m-md-1">
+                            Client Credentials Flow Login
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            <!-- Authorisation Guide -->
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-sm">
+            @if (Model?.Token?.HasToken == true)
+            {
+                <h2 class="text-center">Spotify Web API App Authorisation</h2>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Search</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="SearchForAnItem" method="post">
+                            <select asp-for="Option" class="form-control mb-2">
+                                <option>Album</option>
+                                <option>Track</option>
+                                <option>Artist</option>
+                                <option>Playlist</option>
+                                <option>Show</option>
+                                <option>Episode</option>
+                            </select>
+                            <input asp-for="Value" placeholder="Query" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Search For An Item
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Browse</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAllCategories" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get All Categories
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetCategory" method="post">
+                            <input asp-for="Value" placeholder="Category Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Category
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetCategoryPlaylists" method="post">
+                            <input asp-for="Value" placeholder="Category Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Category Playlists
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetRecommendationGenres" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get Recommendation Genres
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetRecommendations" method="post">
+                            <input asp-for="Value" placeholder="Genre" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Recommendations
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAllNewReleases" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get All New Releases
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAllFeaturedPlaylists" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get All Featured Playlists
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Browse -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Artists</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetMultipleArtists" method="post">
+                            <input asp-for="Value" placeholder="Artist Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Multiple Artists
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetArtist" method="post">
+                            <input asp-for="Value" placeholder="Artist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Artist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetArtistAlbums" method="post">
+                            <input asp-for="Value" placeholder="Artist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Artist's Albums
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetArtistTopTracks" method="post">
+                            <input asp-for="Value" placeholder="Artist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Artist's Top Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetArtistRelatedArtists" method="post">
+                            <input asp-for="Value" placeholder="Artist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Artist's Related Artists
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Artists -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Albums</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetMultipleAlbums" method="post">
+                            <input asp-for="Value" placeholder="Album Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Multiple Albums
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAlbum" method="post">
+                            <input asp-for="Value" placeholder="Album Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Album
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAlbumTracks" method="post">
+                            <input asp-for="Value" placeholder="Album Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Album's Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Albums -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Tracks</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetSeveralTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Multiple Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetTrack" method="post">
+                            <input asp-for="Value" placeholder="Track Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAudioFeaturesForSeveralTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Audio Features for Several Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetAudioFeaturesForTrack" method="post">
+                            <input asp-for="Value" placeholder="Track Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Audio Features for a Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetTrackAudioAnalysis" method="post">
+                            <input asp-for="Value" placeholder="Track Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Audio Analysis for a Track
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Tracks -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Episodes</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetEpisode" method="post">
+                            <input asp-for="Value" placeholder="Episode Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get an Episode
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetMultipleEpisodes" method="post">
+                            <input asp-for="Value" placeholder="Episode Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Multiple Episodes
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Episodes -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Shows</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetShow" method="post">
+                            <input asp-for="Value" placeholder="Show Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Show
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetMultipleShows" method="post">
+                            <input asp-for="Value" placeholder="Show Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Multiple Shows
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetShowEpisodes" method="post">
+                            <input asp-for="Value" placeholder="Show Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Show's Episodes
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Shows -->
+                </ul>
+                <!-- Spotify Web API App Authorisation -->
+            }
+        </div>
+        <div class="col-sm">
+            @if (Model?.Token?.HasUserToken == true)
+            {
+                <h2 class="text-center">Spotify Web API User Authorisation</h2>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Follow</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="FollowArtistsOrUsers" method="post">
+                            <select asp-for="Option" class="form-control mb-2"
+                                    asp-items="Html.GetEnumSelectList<Spotify.NetStandard.Enums.FollowType>()">
+                            </select>
+                            <input asp-for="Value" placeholder="Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Follow Artists or Users
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="FollowPlaylist" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Follow a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetFollowingStateForArtistsOrUsers" method="post">
+                            <select asp-for="Option" class="form-control mb-2"
+                                    asp-items="Html.GetEnumSelectList<Spotify.NetStandard.Enums.FollowType>()">
+                            </select>
+                            <input asp-for="Value" placeholder="Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get Following State for Artists or Users
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="CheckUsersFollowingPlaylist" method="post">
+                            <input asp-for="Option" placeholder="Playlist Id" class="form-control mb-2" />
+                            <input asp-for="Value" placeholder="User Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Check if Users Follow a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUsersFollowedArtists" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get User's Followed Artists
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UnfollowArtistsOrUsers" method="post">
+                            <select asp-for="Option" class="form-control mb-2"
+                                    asp-items="Html.GetEnumSelectList<Spotify.NetStandard.Enums.FollowType>()">
+                            </select>
+                            <input asp-for="Value" placeholder="Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Unfollow Artists or Users
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UnfollowPlaylist" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Unfollow a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Follow -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Playlists</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetPlaylist" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetPlaylistTracks" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Playlist's Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="CreatePlaylist" method="post">
+                            <input asp-for="Value" placeholder="User Id" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Name" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Create a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetCurrentUserPlaylists" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get a List of Current User's Playlists
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserPlaylists" method="post">
+                            <input asp-for="Value" placeholder="User Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a List of a User's Playlists
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="AddTracksToPlaylist" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Add Tracks to a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="RemoveTracksFromPlaylist" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Remove Tracks from a Playlist
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UploadCustomPlaylistCoverImage"
+                              enctype="multipart/form-data" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <input asp-for="Upload" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Upload a Custom Playlist Cover Image
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetPlaylistCoverImage" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a Playlist Cover Image
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="ChangePlaylistDetails" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Name" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Change a Playlist's Details
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="ReplacePlaylistTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Playlist Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Replace a Playlist's Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="ReorderPlaylistTracks" method="post">
+                            <input asp-for="Value" placeholder="Playlist Id" class="form-control mb-2" />
+                            <input asp-for="Option" placeholder="Index" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Reorder a Playlist's Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Playlists -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Library</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="SaveUserAlbums" method="post">
+                            <input asp-for="Value" placeholder="Album Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Save Albums for Current User
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="SaveUserTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Save Tracks for User
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="SaveUserShows" method="post">
+                            <input asp-for="Value" placeholder="Show Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Save Shows for User
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="CheckUserSavedAlbums" method="post">
+                            <input asp-for="Value" placeholder="Album Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Check User's Saved Albums
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="CheckUserSavedTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Check User's Saved Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="CheckUserSavedShows" method="post">
+                            <input asp-for="Value" placeholder="Show Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Check User's Saved Shows
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserSavedAlbums" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get User's Saved Albums
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserSavedTracks" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get User's Saved Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserSavedShows" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get User's Saved Shows
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="RemoveUserAlbums" method="post">
+                            <input asp-for="Value" placeholder="Album Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Remove Albums for Current User
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="RemoveUserTracks" method="post">
+                            <input asp-for="Value" placeholder="Track Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Remove User's Saved Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="RemoveUserShows" method="post">
+                            <input asp-for="Value" placeholder="Show Ids" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Remove User's Saved Shows
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Library -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Player</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackAddToQueue" method="post">
+                            <select asp-for="Option" class="form-control mb-2">
+                                <option>Track</option>
+                                <option>Episode</option>
+                            </select>
+                            <input asp-for="Value" placeholder="Item Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Add an Item to the User's Playback Queue
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackStartResume" method="post">
+                            <select asp-for="Option" class="form-control mb-2">
+                                <option>Album</option>
+                                <option>Track</option>
+                                <option>Artist</option>
+                                <option>Playlist</option>
+                            </select>
+                            <input asp-for="Value" placeholder="Item Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Start/Resume a User's Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackPause" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Pause a User's Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackNextTrack" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Skip User’s Playback to Next Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackNextTrack" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Skip User’s Playback to Previous Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackSeekTrack" method="post">
+                            <input asp-for="Option" placeholder="Position Seconds" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Seek to Position in Currently Playing Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackSetVolume" method="post">
+                            <input type="range" asp-for="Option" class="form-control-range mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Set Volume for User's Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackToggleShuffle" method="post">
+                            <input type="checkbox" asp-for="Flag" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Toggle Shuffle for User’s Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackSetRepeatMode" method="post">
+                            <input type="checkbox" asp-for="Flag" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Set Repeat Mode on User’s Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserPlaybackCurrent" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get Information about the User's Current Playback
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserPlaybackCurrentTrack" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get the User's Currently Playing Track
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserRecentlyPlayedTracks" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get User's Recently Played Tracks
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserPlaybackDevices" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get a User's Available Devices
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="UserPlaybackTransfer" method="post">
+                            <input asp-for="Value" placeholder="Device Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Transfer a User's Playback
+                            </button>
+                        </form>
+                    </li>
+                    <!-- Player -->
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">Personalisation</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserTopArtistsAndTracks" method="post">
+                            <select asp-for="Option" class="form-control mb-2">
+                                <option>Artists</option>
+                                <option>Tracks</option>
+                            </select>
+                            <button class="btn btn-primary mb-2">
+                                Get a User's Top Artists and Tracks
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="list-group mb-2">
+                    <li class="list-group-item list-group-item-primary">
+                        <h5 class="list-group-item-heading">User Profile</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetUserProfile" method="post">
+                            <input asp-for="Value" placeholder="User Id" class="form-control mb-2" />
+                            <button class="btn btn-primary mb-2">
+                                Get a User's Profile
+                            </button>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <form asp-page-handler="GetCurrentUserProfile" method="post">
+                            <button class="btn btn-primary mb-2">
+                                Get Current User's Profile
+                            </button>
+                        </form>
+                    </li>
+                    <!-- User Profile -->
+                </ul>
+                <!-- Spotify Web API User Authorisation -->
+            }
+        </div>
+    </div>
+    <div class="row mb-2">
+        @if (Model?.Results?.Count() > 0)
+        {
+            var first = Model?.Results.First();
+            <h2>Results</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        @if (first.Image != null)
+                        {
+                            <th>Image</th>
+                        }
+                        @if (first.Id != null)
+                        {
+                            <th>Id</th>
+                        }
+                        @if (first.Name != null)
+                        {
+                            <th>Name</th>
+                        }
+                        @if (first?.Inner?.Id != null)
+                        {
+                            <th>Id</th>
+                        }
+                        @if (first?.Inner?.Name != null)
+                        {
+                            <th>Name</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in Model.Results)
+                    {
+                        <tr>
+                            @if (result.Image != null)
+                            {
+                                <td><img height="64" width="64" src="@result.Image" /></td>
+                            }
+                            @if (result.Id != null)
+                            {
+                                <td>@result.Id</td>
+                            }
+                            @if (result.Name != null)
+                            {
+                                <td>@result.Name</td>
+                            }
+                            @if (result?.Inner?.Id != null)
+                            {
+                                <td>@result.Inner.Id</td>
+                            }
+                            @if (result?.Inner?.Name != null)
+                            {
+                                <td>@result.Inner.Name</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <!-- Results -->
+</div>
+
+@section Scripts
+{
+    <script language="javascript">
+        $(window).ready(function () {
+            var href = $(location).attr("href");
+            if (href.indexOf('#') >= 0) {
+                href = href.replace('#', '?');
+                window.location.replace(href);
+            }
+        });
+    </script>
+}
