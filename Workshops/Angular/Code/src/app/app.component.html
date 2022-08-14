@@ -1,0 +1,35 @@
+<app-hello-world></app-hello-world>
+<h2>{{getMessage()}}</h2>
+<button type="button" (click)="showMessage()">Show Message</button>
+<div>{{dateOfBirth | date}}</div>
+<img [src]="grinningFace" height="150" width="150"/>
+<div><span [class]="contrast">Contrast</span></div>
+<app-sizer [(size)]="fontSize"></app-sizer>
+<div [style.font-size.px]="fontSize">Resizable Text</div>
+<app-sizer [size]="fontSize" (sizeChange)="fontSize=$event"></app-sizer>
+<input type="text" #message/>
+<button type="button" (click)="show(message.value)">Show</button>
+<div><span [ngClass]="styling">Highlighted</span></div>
+<div><a href="#" (click)="setStyle()" [ngStyle]="styles">Toggle Style</a></div>
+<input type="text" name="model" [(ngModel)]="model"/>
+<h2>{{model}}</h2>
+<button (click)="toggle()">Click Here</button>
+<h2 *ngIf="isShown">Hello World!</h2>
+<ul><li *ngFor="let item of items">{{item}}</li></ul>
+<ul>
+    <li *ngFor="let value of values" [ngSwitch]="value.status">
+        <span *ngSwitchCase="'red'" style="background-color: red">
+          Danger
+        </span>
+        <span *ngSwitchCase="'yellow'" style="background-color: yellow">
+          Warning
+        </span>
+        <span *ngSwitchCase="'green'" style="background-color: green">
+          Proceed
+        </span>
+        <span *ngSwitchDefault>
+          None
+        </span>
+    </li>
+</ul>
+<h2>{{demoService.getMessage()}}</h2>
