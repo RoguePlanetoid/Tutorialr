@@ -1,0 +1,155 @@
+﻿@page "/"
+@* Injects *@
+@inject IJSRuntime runtime;
+@inject DemoService service;
+@code
+{
+    // Variables
+    string message = "Hello World";
+    DateOnly dateOfBirth = DateOnly.Parse("23-June-1912");
+    string styling = "background-color: yellow";
+    string[] contrast = { "inverted", "large" };
+    string text = string.Empty;
+    string style = string.Empty;
+    bool isSelected = false;
+    string value = string.Empty;
+    int size = 20;
+    bool isShown = false;
+    List<string> items = new()
+    {
+        "Hello",
+        "World"
+    };
+    Dictionary<string, string> values = new()
+    {
+        { "None", "" },
+        { "Danger", "red" },
+        { "Warning", "yellow" },
+        { "Proceed", "green" }
+    };
+    Model model = new();
+    // Methods
+    Uri GetImage()
+    {
+        return new("https://openmoji.org/data/color/svg/1F600.svg");
+    }
+
+    async void Alert(string message)
+    {
+        await runtime.InvokeVoidAsync("alert", message);
+    }
+
+    void ShowMessage()
+    {
+        Alert("Hello World");
+    }
+
+    void SetStyle()
+    {
+        isSelected = !isSelected;
+        style = $"font-weight:{(isSelected ? "bold" : "normal")}";
+    }
+
+    void Toggle()
+    {
+        this.isShown = !this.isShown;
+    }
+
+    void HandleValidSubmit()
+    {
+        Alert(model.Name ?? string.Empty);
+    }
+}
+
+@* Application *@
+<h1>@message</h1>
+<Message Value="Hello Again!"/>
+<Date Value="dateOfBirth"/>
+<div><span style="@styling">Highlighted</span></div>
+<div><span class="@string.Join(" ", contrast)">Contrast</span></div>
+<div>
+    <img src="@GetImage()" height="150" width="150" title="Image" />
+</div>
+<div>
+    <input type="text" @bind="text" @bind:event="oninput" />
+    <h2>@text</h2>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="ShowMessage">
+        Show Message
+    </button>
+</div>
+<div>
+    <a href="#" style="@style" @onclick="SetStyle">Toggle Style</a>
+</div>
+<div>
+    <input type="text" @bind="value" />
+    <button class="btn btn-primary" type="button" 
+    @onclick="@(e => Alert(value))">
+        Show
+    </button>
+</div>
+<div>
+    <Sizer Size="@size" SizeChanged="(int value) => size = value" />
+    <div style="font-size:@(size)px">Resizable Text</div>
+</div>
+<div>
+    <button class="btn btn-primary" 
+    @onclick="Toggle">Click Here</button>
+    @if (isShown)
+    {
+        <h2>Hello World!</h2>
+    }
+</div>
+<div>
+    <ul>
+    @foreach (string item in items)
+    {
+        <li>@item</li>
+    }
+    </ul>
+</div>
+<div>
+    <ul>
+    @foreach (var value in values)
+    {
+        <li>
+            @switch (value.Key)
+            {
+                case "Danger":
+                    <span style="background-color: red">
+                        Danger
+                    </span>
+                    break;
+                case "Warning":
+                    <span style="background-color: yellow">
+                        Warning
+                    </span>
+                    break;
+                case "Proceed":
+                    <span style="background-color: green">
+                        Proceed
+                    </span>
+                    break;
+                default:
+                    <span>
+                        None
+                    </span>
+                    break;
+            }
+        </li>
+    }
+    </ul>
+</div>
+<div>
+    <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <label>
+            Name
+            <InputText id="name" @bind-Value="model.Name" />
+        </label>
+        <ValidationSummary /> 
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
+</div>
+<h2>@service.GetMessage()</h2>

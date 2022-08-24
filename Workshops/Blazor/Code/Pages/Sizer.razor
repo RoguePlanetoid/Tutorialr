@@ -1,0 +1,28 @@
+<div>
+    <button class="btn btn-primary" 
+    @onclick="Decrease" title="Decrease">-</button>
+    <button class="btn btn-primary" 
+    @onclick="Increase" title="Increase">+</button>
+    <span style="font-size:@(Size)px">Font Size: @Size<text>px</text></span>
+</div>  
+@code 
+{
+
+    [Parameter]
+    public int Size { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SizeChanged { get; set; }
+
+    private async void Resize(int delta)
+    {
+        Size = Math.Min(40, Math.Max(8, + this.Size + delta));
+        await SizeChanged.InvokeAsync(Size);
+    }
+
+    private void Decrease() =>
+        Resize(-1);
+
+    private void Increase() =>
+        Resize(+1);
+}
